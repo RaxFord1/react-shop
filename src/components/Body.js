@@ -1,5 +1,12 @@
 function Body(props) {
-  return <section className="py-5">{props.children}</section>;
+  return (
+    <>
+      rendered = {props.rendered}
+      <br />
+      displated = {props.cardsToShow.length}
+      <section className="py-5">{props.children}</section>
+    </>
+  );
 }
 
 export default Body;

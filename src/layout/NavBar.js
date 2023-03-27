@@ -1,7 +1,17 @@
 import { NavLink } from "react-router-dom";
+import React, { useState } from "react";
 import Cart from "../components/Cart";
+import Login from "../components/Login";
 
-function NavBar() {
+function NavBar(props) {
+  const [autorized, setAuthorized] = useState(false);
+  function onAuth() {
+    if (autorized) {
+      setAuthorized(false);
+    } else {
+      setAuthorized(true);
+    }
+  }
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container px-4 px-lg-5">
@@ -25,7 +35,7 @@ function NavBar() {
               <NavLink
                 className="nav-link dropdown-toggle"
                 id="navbarDropdown"
-                href="#"
+                to="#"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
@@ -34,7 +44,7 @@ function NavBar() {
               </NavLink>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
-                  <NavLink className="dropdown-item" href="#!">
+                  <NavLink className="dropdown-item" to="#!">
                     All Products
                   </NavLink>
                 </li>
@@ -42,19 +52,20 @@ function NavBar() {
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <NavLink className="dropdown-item" href="#!">
+                  <NavLink className="dropdown-item" to="#!">
                     Popular Items
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className="dropdown-item" href="#!">
+                  <NavLink className="dropdown-item" to="#!">
                     New Arrivals
                   </NavLink>
                 </li>
               </ul>
             </li>
           </ul>
-          <Cart />
+          <Cart counter={props.counter} />
+          <Login autorized={autorized} onClick={onAuth} />
         </div>
       </div>
     </nav>

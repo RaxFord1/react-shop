@@ -11,6 +11,9 @@ function CardList(props) {
           price={item.price}
           sale={item.sale}
           name={item.name}
+          category={item.category}
+          onRender={props.onRender}
+          onSelect={props.onSelect}
         />
       ))}
       <div />

@@ -4,7 +4,7 @@ import Footer from "./Footer.js";
 function Template(props) {
   return (
     <>
-      <NavBar />
+      <NavBar counter={props.selected_counter}/>
       {props.children}
       <Footer />
     </>
