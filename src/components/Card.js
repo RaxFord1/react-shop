@@ -4,16 +4,20 @@ import React from "react";
 class Card extends React.Component {
   constructor(props) {
     super();
+    var selected = props.selected;
+    if (selected === undefined) {
+      selected = false;
+    }
     this.state = {
-      selectedState: false,
+      selectedState: selected,
       rendered: false,
     };
-    this.id = props.id
+    this.id = props.id;
     this.sale = props.sale;
     this.image = props.image;
     this.name = props.name;
     this.price = props.price;
-    this.category = props.category
+    this.category = props.category;
     this.onRender = props.onRender;
     this.onItemSelectHandler = props.onSelect;
     this.selectCard = () => {};
@@ -21,7 +25,7 @@ class Card extends React.Component {
 
   handleClick = () => {
     this.setState((prevState) => {
-      this.onItemSelectHandler(this.id)
+      this.onItemSelectHandler(this.id);
       if (prevState.selectedState) {
         prevState.selectedState = false;
       } else {
@@ -31,14 +35,16 @@ class Card extends React.Component {
     });
   };
 
-  render() {
+  componentDidMount() {
     if (!this.state.rendered) {
       this.setState((prevState) => {
-        return { ...prevState, rendered: true};
-      })
+        return { ...prevState, rendered: true };
+      });
       this.onRender();
     }
-    
+  }
+
+  render() {
     return (
       <div className="col mb-5">
         <div className="card h-100">
@@ -50,12 +56,11 @@ class Card extends React.Component {
             <div className="text-center">
               <h5 className="fw-bolder">{this.name}</h5>
               {this.category}
-              <br/>
+              <br />
               {this.price}
-              
             </div>
           </div>
-          
+
           <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div className="text-center">
               <button

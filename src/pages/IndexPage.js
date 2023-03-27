@@ -78,35 +78,44 @@ class IndexPage extends React.Component {
       counter: 0,
       selected_counter: 0,
       rendered: 0,
-      selected: [],
+      selected_items: [],
       selected_categories: [],
+      displayed_items: 0,
     };
+    this.cardListRef = React.createRef();
   }
 
   handleChangeCategory = (selectedOption) => {
-    this.setState((prevState) => {
-      return { ...prevState, selected_categories: selectedOption };
-    });
-    console.log(selectedOption);
+    this.setState(
+      (prevState) => ({ selected_categories: selectedOption }),
+      () => this.cardListRef.current.updateCategories(selectedOption)
+    );
   };
 
   onItemSelectHandler = (id) => {
-    this.setState((prevState) => {
-      var ids = prevState.selected.filter((item) => item.id !== id);
-      if (ids.length === prevState.selected.length) {
-        var element = CardsListData.find((element) => element.id === id);
-        return {
-          ...prevState,
-          selected_counter: prevState.selected_counter + 1,
-          selected: [...prevState.selected, element],
-        };
-      } else {
-        return {
-          ...prevState,
-          selected_counter: prevState.selected_counter - 1,
-          selected: [...ids],
-        };
-      }
+    this.setState(
+      (prevState) => {
+        var ids = prevState.selected_items.filter((item) => item.id !== id);
+        if (ids.length === prevState.selected_items.length) {
+          var element = CardsListData.find((element) => element.id === id);
+          return {
+            ...prevState,
+            selected_items: [...prevState.selected_items, element],
+          };
+        } else {
+          return {
+            ...prevState,
+            selected_items: [...ids],
+          };
+        }
+      },
+      () => this.cardListRef.current.updateSelected(this.state.selected_items)
+    );
+  };
+
+  updateDisplayed = (length) => {
+    this.setState((oldState) => {
+      return { ...oldState, displayed_items: length };
     });
   };
 
@@ -117,30 +126,29 @@ class IndexPage extends React.Component {
   };
 
   render() {
-    console.log("this.state.selected", this.state.selected);
-    var cardsToShow = [];
-    if (this.state.selected_categories.length === 0) {
-      cardsToShow = CardsListData;
-    } else {
-      cardsToShow = CardsListData.filter((item) =>
-        this.state.selected_categories.some(
-          (cat) => cat.value === item.category
-        )
-      );
-    }
     return (
-      <Template selected_counter={this.state.selected_counter}>
+      <Template selected_counter={this.state.selected_items.length}>
         <Header
           title="Buy any file you want"
           description="With our website u can achieve anything!"
         />
-        <Body rendered={this.state.rendered} cardsToShow={cardsToShow}>
-          <CategorySelection options={categories} onChange={this.handleChangeCategory} />
+        <Body
+          rendered={this.state.rendered}
+          cardsToShow={this.state.displayed_items}
+        >
+          <CategorySelection
+            options={categories}
+            onChange={this.handleChangeCategory}
+          />
           <div className="container px-4 px-lg-5 mt-5">
             <CardList
-              cards={cardsToShow}
+              cards={CardsListData}
+              categories={this.state.selected_categories}
+              selected_items={this.state.selected_items}
               onRender={this.onRenderHandler}
               onSelect={this.onItemSelectHandler}
+              onUpdate={this.updateDisplayed}
+              ref={this.cardListRef}
             />
           </div>
         </Body>

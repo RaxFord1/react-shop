@@ -3,7 +3,7 @@ function Body(props) {
     <>
       rendered = {props.rendered}
       <br />
-      displated = {props.cardsToShow.length}
+      displated = {props.cardsToShow}
       <section className="py-5">{props.children}</section>
     </>
   );
