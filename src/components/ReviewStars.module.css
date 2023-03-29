@@ -1,0 +1,28 @@
+@import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
+
+
+.content {
+  width: 420px;
+  font-family: "Open Sans", serif;
+  background: #eee;
+}
+
+.ratings {
+  background-color: #fff;
+  padding: 54px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 10px 10px #e0e0e0;
+}
+
+.product_rating {
+  font-size: 50px;
+}
+
+.stars i {
+  font-size: 18px;
+  color: #28a745;
+}
+
+.rating_text {
+  margin-top: 10px;
+}

@@ -1,5 +1,6 @@
 import Sale from "./Sale";
 import React from "react";
+import { NavLink } from "react-router-dom";
 
 class Card extends React.Component {
   constructor(props) {
@@ -18,7 +19,9 @@ class Card extends React.Component {
     this.name = props.name;
     this.price = props.price;
     this.category = props.category;
+    this.displayed_price = props.displayed_price;
     this.onRender = props.onRender;
+    console.log(props.onSelect)
     this.onItemSelectHandler = props.onSelect;
     this.selectCard = () => {};
   }
@@ -40,7 +43,10 @@ class Card extends React.Component {
       this.setState((prevState) => {
         return { ...prevState, rendered: true };
       });
-      this.onRender();
+      if (this.onRender !== undefined && this.onRender !== null) {
+        console.log(this.onRender);
+        this.onRender();
+      }
     }
   }
 
@@ -54,10 +60,16 @@ class Card extends React.Component {
 
           <div className="card-body p-4">
             <div className="text-center">
-              <h5 className="fw-bolder">{this.name}</h5>
+              <h5 className="fw-bolder">
+                <NavLink to={"/item/" + this.id}>{this.name}</NavLink>
+              </h5>
               {this.category}
               <br />
-              {this.price}
+              {this.displayed_price !== null &&
+              this.displayed_price !== undefined
+                ? this.displayed_price
+                : "$" + this.price}
+              {this.price_displayed}
             </div>
           </div>
 

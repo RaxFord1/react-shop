@@ -16,7 +16,7 @@ function NavBar(props) {
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container px-4 px-lg-5">
         <NavLink className="navbar-brand" to="">
-          <span>Our Shop</span>
+          <span>Rimuru Shop</span>
         </NavLink>
 
         <div className="collapse navbar-collapse" id="navbarSupportedContent">

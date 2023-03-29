@@ -5,59 +5,74 @@ import CardList from "../components/CardList";
 
 import React from "react";
 import Select from "react-select";
+import CartItemsContext from "../store/CartItemsContext";
 
 //orig: https://startbootstrap.github.io/startbootstrap-shop-homepage/?
 
-const CardsListData = [
+export const CardsListData = [
   {
     id: "card1",
     name: "First Product",
-    price: "$80.00",
+    displayed_price: "$80.00",
+    price: 80.0,
     image: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg",
     category: "nft",
+    description: "First product desctiption.",
   },
   {
     id: "card2",
     name: "Second Product",
-    price: "$40.00 ",
+    displayed_price: "$40.00 ",
+    price: 40.0,
     image: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg",
     category: "programming",
+    description: "",
   },
   {
     id: "card3",
     name: "Third Product",
-    price: "$40.00 ",
+    displayed_price: "$40.00 ",
+    price: 40.0,
     image: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg",
     sale: true,
     category: "learning",
+    description: "",
   },
   {
     id: "card4",
     name: "Fourth Product",
-    price: "$40.00 - $80.00",
+    displayed_price: "$40.00 - $80.00",
+    price: 70.0,
     image: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg",
     category: "learning",
+    description: "",
   },
   {
     id: "card5",
     name: "Fifth Product",
-    price: "$40.00 - $80.00",
+    displayed_price: "$40.00 - $80.00",
+    price: 60.0,
     image: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg",
     category: "programming",
+    description: "",
   },
   {
     id: "card6",
     name: "Sixth Product",
-    price: "$100.00",
+    displayed_price: "$100.00",
+    price: 100.0,
     image: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg",
     category: "programming",
+    description: "",
   },
   {
     id: "card7",
     name: "Seventh Product",
-    price: "$99.99",
+    displayed_price: "$99.99",
+    price: 99.99,
     image: "https://dummyimage.com/450x300/dee2e6/6c757d.jpg",
     category: "programming",
+    description: "",
   },
 ];
 
@@ -72,17 +87,29 @@ const CategorySelection = (props) => (
 );
 
 class IndexPage extends React.Component {
+  static contextType = CartItemsContext;
+
   constructor(props) {
     super();
+    console.log("props.selectedItems", props.selectedItems);
     this.state = {
       counter: 0,
-      selected_counter: 0,
+      selected_counter: props.totalSelectedItems,
       rendered: 0,
-      selected_items: [],
+      selected_items: props.selectedItems,
       selected_categories: [],
       displayed_items: 0,
     };
     this.cardListRef = React.createRef();
+  }
+
+  componentWillMount() {
+    console.log("upd: this.context.selectedItems");
+    this.setState((prevState) => ({
+      ...prevState,
+      selected_items: this.context.selectedItems,
+      selected_counter: this.context.totalSelectedItems,
+    }));
   }
 
   handleChangeCategory = (selectedOption) => {
@@ -93,11 +120,12 @@ class IndexPage extends React.Component {
   };
 
   onItemSelectHandler = (id) => {
+    var element = CardsListData.find((element) => element.id === id);
+
     this.setState(
       (prevState) => {
         var ids = prevState.selected_items.filter((item) => item.id !== id);
         if (ids.length === prevState.selected_items.length) {
-          var element = CardsListData.find((element) => element.id === id);
           return {
             ...prevState,
             selected_items: [...prevState.selected_items, element],
@@ -109,7 +137,15 @@ class IndexPage extends React.Component {
           };
         }
       },
-      () => this.cardListRef.current.updateSelected(this.state.selected_items)
+      () => {
+        this.cardListRef.current.updateSelected(this.state.selected_items);
+        const cartCtx = this.context;
+        if (cartCtx.isSelected(element.id)) {
+          cartCtx.removeItem(element.id);
+        } else {
+          cartCtx.addItem(element);
+        }
+      }
     );
   };
 
@@ -126,6 +162,10 @@ class IndexPage extends React.Component {
   };
 
   render() {
+    console.log(
+      "render: this.context.selectedItems",
+      this.context.selectedItems
+    );
     return (
       <Template selected_counter={this.state.selected_items.length}>
         <Header
