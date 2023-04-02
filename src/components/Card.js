@@ -3,6 +3,8 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Favourite from "./Favourite";
 import FavouriteContext from "../store/FavoritesItemsContext";
+import { CSSTransition } from "react-transition-group";
+import "./Card.modules.css";
 
 class Card extends React.Component {
   static contextType = FavouriteContext;
@@ -33,12 +35,11 @@ class Card extends React.Component {
   handleClick = () => {
     this.setState((prevState) => {
       this.onItemSelectHandler(this.id);
-      if (prevState.selectedState) {
-        prevState.selectedState = false;
-      } else {
-        prevState.selectedState = true;
-      }
-      return prevState;
+
+      return {
+        ...prevState,
+        selectedState: !prevState.selectedState,
+      };
     });
   };
 
@@ -59,7 +60,7 @@ class Card extends React.Component {
     if (favCtx.isSelected(id)) {
       favCtx.removeItem(id);
     } else {
-      console.log("a")
+      console.log("a");
       favCtx.addItem({
         id: this.id,
         name: this.name,
@@ -73,12 +74,15 @@ class Card extends React.Component {
     }
     this.setState((prevState) => ({
       ...prevState,
-      isSelectedFavourite: favCtx.isSelected(id),
+      isSelectedFavourite: !prevState.isSelectedFavourite,
     }));
   };
 
   render() {
-    console.log("this.state.isSelectedFavourite", this.state.isSelectedFavourite)
+    console.log(
+      "this.state.isSelectedFavourite",
+      this.state.isSelectedFavourite
+    );
     return (
       <div className="col mb-5">
         <div className="card h-100">
@@ -107,16 +111,25 @@ class Card extends React.Component {
 
           <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
             <div className="text-center">
-              <button
-                className="btn btn-outline-dark mt-auto"
-                onClick={this.handleClick}
+              <CSSTransition
+                in={this.state.selectedState}
+                timeout={500}
+                appear
+                classNames="btn-transition"
               >
-                {this.state.selectedState ? (
-                  <>Delete From Cart</>
-                ) : (
-                  <>Add To Cart</>
-                )}
-              </button>
+                <div className="btn-content">
+                  <button
+                    className="btn btn-outline-dark mt-auto"
+                    onClick={this.handleClick}
+                  >
+                    {this.state.selectedState ? (
+                      <>Delete From Cart</>
+                    ) : (
+                      <>Add To Cart</>
+                    )}
+                  </button>
+                </div>
+              </CSSTransition>
             </div>
           </div>
         </div>

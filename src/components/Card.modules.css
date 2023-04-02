@@ -1,0 +1,38 @@
+.btn {
+  position: relative;
+}
+
+.btn:before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 0.3;
+  background-color: green;
+  z-index: -1;
+  transition: opacity 300ms ease-in-out;
+}
+
+.btn:hover:before {
+  opacity: 0.6;
+}
+
+.btn-transition-enter {
+  opacity: 0;
+}
+
+.btn-transition-enter-active {
+  opacity: 1;
+  transition: opacity 300ms ease-in-out;
+}
+
+.btn-transition-exit {
+  opacity: 1;
+}
+
+.btn-transition-exit-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in-out;
+}
