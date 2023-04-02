@@ -54,11 +54,9 @@ class CardList extends React.Component {
     });
   };
 
-  componentDidMount() {
-    this.onUpdate(this.state.cardsToShow.length);
-  }
-
   render() {
+    console.log("this.state.cardsToShow",this.state.cardsToShow)
+    console.log("this.state.cards",this.state.cards)
     return (
       <div className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
         {this.state.cardsToShow.map((item) => {

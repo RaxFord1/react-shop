@@ -44,8 +44,8 @@ function NavBar(props) {
               </NavLink>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                 <li>
-                  <NavLink className="dropdown-item" to="#!">
-                    All Products
+                  <NavLink className="dropdown-item" to="/category">
+                    Category
                   </NavLink>
                 </li>
                 <li>
@@ -62,6 +62,11 @@ function NavBar(props) {
                   </NavLink>
                 </li>
               </ul>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link active" to="/debug">
+                Debug
+              </NavLink>
             </li>
           </ul>
           <Cart counter={props.counter} />

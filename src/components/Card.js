@@ -1,8 +1,12 @@
 import Sale from "./Sale";
 import React from "react";
 import { NavLink } from "react-router-dom";
+import Favourite from "./Favourite";
+import FavouriteContext from "../store/FavoritesItemsContext";
 
 class Card extends React.Component {
+  static contextType = FavouriteContext;
+
   constructor(props) {
     super();
     var selected = props.selected;
@@ -11,6 +15,7 @@ class Card extends React.Component {
     }
     this.state = {
       selectedState: selected,
+      isSelectedFavourite: false,
       rendered: false,
     };
     this.id = props.id;
@@ -21,7 +26,6 @@ class Card extends React.Component {
     this.category = props.category;
     this.displayed_price = props.displayed_price;
     this.onRender = props.onRender;
-    console.log(props.onSelect)
     this.onItemSelectHandler = props.onSelect;
     this.selectCard = () => {};
   }
@@ -44,19 +48,47 @@ class Card extends React.Component {
         return { ...prevState, rendered: true };
       });
       if (this.onRender !== undefined && this.onRender !== null) {
-        console.log(this.onRender);
         this.onRender();
       }
     }
   }
 
+  addFav = () => {
+    let favCtx = this.context;
+    var id = this.id;
+    if (favCtx.isSelected(id)) {
+      favCtx.removeItem(id);
+    } else {
+      console.log("a")
+      favCtx.addItem({
+        id: this.id,
+        name: this.name,
+        displayed_price: this.displayed_price,
+        price: this.price,
+        image: this.image,
+        sale: this.sale,
+        category: this.category,
+        description: this.description,
+      });
+    }
+    this.setState((prevState) => ({
+      ...prevState,
+      isSelectedFavourite: favCtx.isSelected(id),
+    }));
+  };
+
   render() {
+    console.log("this.state.isSelectedFavourite", this.state.isSelectedFavourite)
     return (
       <div className="col mb-5">
         <div className="card h-100">
           <Sale sale={this.sale} />
 
           <img className="card-img-top" src={this.image} alt="..." />
+          <Favourite
+            onClick={this.addFav}
+            value={this.state.isSelectedFavourite}
+          />
 
           <div className="card-body p-4">
             <div className="text-center">

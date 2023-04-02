@@ -6,6 +6,7 @@ import CardList from "../components/CardList";
 import React from "react";
 import Select from "react-select";
 import CartItemsContext from "../store/CartItemsContext";
+import { categories } from "./CategoryPage";
 
 //orig: https://startbootstrap.github.io/startbootstrap-shop-homepage/?
 
@@ -74,12 +75,6 @@ export const CardsListData = [
     category: "programming",
     description: "",
   },
-];
-
-const categories = [
-  { value: "programming", label: "Programming" },
-  { value: "learning", label: "Learning" },
-  { value: "nft", label: "NFT" },
 ];
 
 const CategorySelection = (props) => (
