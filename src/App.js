@@ -8,6 +8,7 @@ import CategoryPage from "./pages/CategoryPage";
 import FavouriteContext, {
   FavouriteItemsProvider,
 } from "./store/FavoritesItemsContext";
+import AdminPanel from "./pages/AdminPage";
 
 function App() {
   const cartCtx = useContext(CartItemsContext);
@@ -27,6 +28,7 @@ function App() {
           <Route path="/item/:id" element={<ItemPage />} />
           <Route path="/category" element={<CategoryPage />} />
           <Route path="/category/:category" element={<CategoryPage />} />
+          <Route path="/admin/" element={<AdminPanel />} />
         </Routes>
         <DebugPage />
       </CartItemsProvider>

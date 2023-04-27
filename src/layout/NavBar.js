@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import React, { useState } from "react";
 import Cart from "../components/Cart";
-import Login from "../components/Login";
+import LoginForm from "../components/LoginModal";
 
 function NavBar(props) {
   const [autorized, setAuthorized] = useState(false);
@@ -70,7 +70,7 @@ function NavBar(props) {
             </li>
           </ul>
           <Cart counter={props.counter} />
-          <Login autorized={autorized} onClick={onAuth} />
+          <LoginForm  autorized={autorized} onClick={onAuth} />
         </div>
       </div>
     </nav>
