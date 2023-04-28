@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import React, { useState } from "react";
 import Cart from "../components/Cart";
-import LoginForm from "../components/LoginModal";
+import LoginModal from "../components/LoginModal";
 
 function NavBar(props) {
   const [autorized, setAuthorized] = useState(false);
@@ -27,8 +27,13 @@ function NavBar(props) {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" href="#!">
-                About
+              <NavLink className="nav-link" to="/admin">
+                Admin
+              </NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/login">
+                LoginPage
               </NavLink>
             </li>
             <li className="nav-item dropdown">
@@ -53,7 +58,7 @@ function NavBar(props) {
                 </li>
                 <li>
                   <NavLink className="dropdown-item" to="#!">
-                    Popular Items
+                    
                   </NavLink>
                 </li>
                 <li>
@@ -70,7 +75,7 @@ function NavBar(props) {
             </li>
           </ul>
           <Cart counter={props.counter} />
-          <LoginForm  autorized={autorized} onClick={onAuth} />
+          <LoginModal  autorized={autorized} onClick={onAuth} />
         </div>
       </div>
     </nav>

@@ -1,22 +1,9 @@
 import React, { useState } from "react";
 import {
-  Button,
-  Card,
-  Col,
-  Form,
-  Input,
-  List,
-  Modal,
-  Row,
-  Select,
-  Table,
-  Upload,
+  Button, Card, Col, Form, Input, List, Modal, Row, Select, Table, Upload,
 } from "antd";
 import {
-  PlusOutlined,
-  UploadOutlined,
-  TableOutlined,
-  AppstoreOutlined,
+  PlusOutlined, UploadOutlined, TableOutlined, AppstoreOutlined,
 } from "@ant-design/icons";
 import Template from "../layout/Template";
 import { categories } from "./CategoryPage";
@@ -24,8 +11,7 @@ import { CardsListData } from "./IndexPage";
 
 const { Option } = Select;
 
-
-const AdminPanel = () => {
+const AdminPage = () => {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState(CardsListData);
@@ -80,52 +66,26 @@ const AdminPanel = () => {
   ];
 
   return (
-    <Template
-    //   selected_counter={
-    //     cartCtx.totalSelectedItems ? cartCtx.totalSelectedItems : 0
-    //   }
-    >
+    <Template>
       <Button type="primary" onClick={showModal} icon={<PlusOutlined />}>
         Add Product
       </Button>
-      <Button
-        onClick={() => setViewType("table")}
-        icon={<TableOutlined />}
-        style={{ marginLeft: 10 }}
-      >
+      <Button onClick={() => setViewType("table")} icon={<TableOutlined />} style={{ marginLeft: 10 }}>
         Table View
       </Button>
-      <Button
-        onClick={() => setViewType("list")}
-        icon={<AppstoreOutlined />}
-        style={{ marginLeft: 10 }}
-      >
+      <Button onClick={() => setViewType("list")} icon={<AppstoreOutlined />} style={{ marginLeft: 10 }}>
         List View
       </Button>
-      <Modal
-        title="Add Product"
-        visible={visible}
-        onCancel={handleCancel}
-        footer={null}
-      >
+      <Modal title="Add Product" visible={visible} onCancel={handleCancel} footer={null}>
         <Form name="add_product" onFinish={onFinish}>
-          <Form.Item
-            label="Name"
-            name="name"
-            rules={[{ required: true, message: "Please enter product name!" }]}
-          >
+          <Form.Item label="Name" name="name" rules={[{ required: true, message: "Please enter product name!" }]}>
             <Input />
           </Form.Item>
-          <Form.Item
-            label="Price"
-            name="price"
-            rules={[{ required: true, message: "Please enter product price!" }]}
+          <Form.Item label="Price" name="price" rules={[{ required: true, message: "Please enter product price!" }]}
           >
             <Input type="number" />
           </Form.Item>
-          <Form.Item
-            label="Category"
-            name="category"
+          <Form.Item label="Category" name="category"
             rules={[{ required: true, message: "Please select a category!" }]}
           >
             <Select placeholder="Select a category">
@@ -136,9 +96,7 @@ const AdminPanel = () => {
               ))}
             </Select>
           </Form.Item>
-          <Form.Item
-            label="Image"
-            name="image"
+          <Form.Item label="Image" name="image"
             rules={[{ required: true, message: "Please upload an image!" }]}
           >
             <Upload>
@@ -159,10 +117,7 @@ const AdminPanel = () => {
           dataSource={products}
           renderItem={(item) => (
             <List.Item>
-              <Card
-                title={item.name}
-                cover={<img alt="example" src={item.image} />}
-              >
+              <Card title={item.name} cover={<img alt="example" src={item.image} />}>
                 {item.displayed_price}
               </Card>
             </List.Item>
@@ -170,15 +125,11 @@ const AdminPanel = () => {
         />
       ) : (
         <Table
-          dataSource={products}
-          columns={columns}
-          rowKey="id"
-          pagination={false}
-          style={{ marginTop: 20 }}
+          dataSource={products} columns={columns} rowKey="id" pagination={false} style={{ marginTop: 20 }}
         />
       )}
     </Template>
   );
 };
 
-export default AdminPanel;
+export default AdminPage;
