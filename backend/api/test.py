@@ -1,7 +1,7 @@
 import unittest
 
 from database.database import Session, OrderItem, Favourite, Item, Category, Order, User
-from main import app
+from api.index import app
 
 category_name = 'Clothing'
 

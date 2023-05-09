@@ -8,8 +8,10 @@ from datetime import datetime
 from sqlalchemy import create_engine, Column, Integer, String, Boolean, DateTime, ForeignKey
 from sqlalchemy.orm import declarative_base, relationship, sessionmaker
 
+from config.config import PSQL_URL
+
 # Set up the database connection
-engine = create_engine('postgresql://postgres:postgres@localhost:5432/postgres')
+engine = create_engine(PSQL_URL)
 Session = sessionmaker(bind=engine)
 Base = declarative_base()
 
