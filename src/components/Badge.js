@@ -1,6 +1,11 @@
-function Badge(props) {
+import { useContext } from "react";
+import CartItemsContext from "../store/CartItemsContext";
+
+function Badge() {
+  const cartCtx = useContext(CartItemsContext);
   return <span className="badge bg-dark text-white ms-1 rounded-pill">
-    {props.value}
+    {cartCtx.totalSelectedItems}
   </span>;
 }
 export default Badge;
+

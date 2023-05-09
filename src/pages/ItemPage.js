@@ -6,63 +6,14 @@ import Sale from "../components/Sale";
 import { useParams } from "react-router-dom";
 import Reviews from "../layout/Reviews";
 import WriteReview from "../components/WriteReview";
-import Currency from "../components/Currency";
 import CartItemsContext from "../store/CartItemsContext";
-
-function useCounter() {
-  const [count, setCount] = useState(0);
-
-  const increment = () => setCount(count + 1);
-  const decrement = () => setCount(count - 1);
-
-  return { count, increment, decrement };
-}
-
-function useWindowSize() {
-  const [size, setSize] = useState([window.innerWidth, window.innerHeight]);
-
-  useEffect(() => {
-    function handleResize() {
-      setSize([window.innerWidth, window.innerHeight]);
-    }
-    window.addEventListener("resize", handleResize);
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, []);
-
-  return size;
-}
-
-function useFullName(firstName, lastName) {
-  const fullName = useMemo(() => `${firstName} ${lastName}`, [firstName, lastName]);
-  return fullName;
-}
 
 function ItemPage(props) {
   const cartCtx = useContext(CartItemsContext);
 
   const { id } = useParams();
-  const { count, increment, decrement } = useCounter();
-  const [width, height] = useWindowSize();
-
-  var firstName = "Dima";
-  var lastName = "Dzundza"
-  const fullName = useFullName(firstName, lastName);
 
   const itemIsSelected = cartCtx.isSelected(id);
-
-  useEffect(() => {
-    console.log(`АПЧХІ! Це буде виконано лише один раз!`);
-  }, []);
-
-  useEffect(() => {
-    document.title = `Значення: ${count}`;
-
-    return () => {
-      document.title = "Rimuru Shop";
-    };
-  }, [count]);
 
   var element = CardsListData.filter((item) => item.id === id);
 
@@ -95,22 +46,7 @@ function ItemPage(props) {
   }
 
   return (
-    <Template
-      selected_counter={
-        cartCtx.totalSelectedItems ? cartCtx.totalSelectedItems : 0
-      }
-    >
-      <div>
-        <p>Значення: {count}</p>
-        <button onClick={increment}>Збільшити</button>
-        <button onClick={decrement}>Зменшити</button>
-      </div>
-      <div>
-        <p>Ширина: {width}px Висота: {height}px</p>
-      </div>
-      <div>
-      <p>Ім'я: {firstName} Прізвище: {lastName} Повне ім'я: {fullName}</p>
-    </div>
+    <Template>
       <section className="py-5">
         <div className="container px-4 px-lg-5 my-5">
           <div className="row gx-4 gx-lg-5 align-items-center">
@@ -138,7 +74,6 @@ function ItemPage(props) {
                 </span>
                 <span> ${element.price}</span>
               </div>
-              <Currency value={element.price} />
               <p className="lead">
                 {element.full_description !== null &&
                 element.full_description !== undefined

@@ -7,7 +7,7 @@ function Cart(props) {
       <button className="btn btn-outline-dark" type="submit">
         <i className="bi-cart-fill me-1"></i>
         Cart
-        <Badge value={props.counter} />
+        <Badge />
       </button>
     </form>
   );

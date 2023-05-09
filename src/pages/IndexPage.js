@@ -109,51 +109,8 @@ class IndexPage extends React.Component {
 
   handleChangeCategory = (selectedOption) => {
     this.setState(
-      (prevState) => ({ selected_categories: selectedOption }),
-      () => this.cardListRef.current.updateCategories(selectedOption)
+      (prevState) => ({ selected_categories: selectedOption })
     );
-  };
-
-  onItemSelectHandler = (id) => {
-    var element = CardsListData.find((element) => element.id === id);
-
-    this.setState(
-      (prevState) => {
-        var ids = prevState.selected_items.filter((item) => item.id !== id);
-        if (ids.length === prevState.selected_items.length) {
-          return {
-            ...prevState,
-            selected_items: [...prevState.selected_items, element],
-          };
-        } else {
-          return {
-            ...prevState,
-            selected_items: [...ids],
-          };
-        }
-      },
-      () => {
-        this.cardListRef.current.updateSelected(this.state.selected_items);
-        const cartCtx = this.context;
-        if (cartCtx.isSelected(element.id)) {
-          cartCtx.removeItem(element.id);
-        } else {
-          cartCtx.addItem(element);
-        }
-      }
-    );
-  };
-
-  updateDisplayed = (length) => {
-    this.setState((oldState) => {
-      return { ...oldState, displayed_items: length };
-    });
-  };
-
-  onRenderHandler = () => {
-    this.setState((prevState) => {
-      return { ...prevState, rendered: prevState.rendered + 1 };
-    });
   };
 
   render() {
@@ -162,7 +119,7 @@ class IndexPage extends React.Component {
       this.context.selectedItems
     );
     return (
-      <Template selected_counter={this.state.selected_items.length}>
+      <Template>
         <Header
           title="Buy any file you want"
           description="With our website u can achieve anything!"
@@ -181,7 +138,6 @@ class IndexPage extends React.Component {
               categories={this.state.selected_categories}
               selected_items={this.state.selected_items}
               onRender={this.onRenderHandler}
-              onSelect={this.onItemSelectHandler}
               onUpdate={this.updateDisplayed}
               ref={this.cardListRef}
             />

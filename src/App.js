@@ -12,20 +12,11 @@ import AdminPage from "./pages/AdminPage";
 import LoginPage from "./pages/LoginPage";
 
 function App() {
-  const cartCtx = useContext(CartItemsContext);
   return (
     <FavouriteItemsProvider>
       <CartItemsProvider>
         <Routes>
-          <Route
-            path="/"
-            element={
-              <IndexPage
-                selectedItems={cartCtx.selectedItems}
-                totalSelectedItems={cartCtx.totalSelectedItems}
-              />
-            }
-          />
+          <Route path="/" element={<IndexPage />} />
           <Route path="/item/:id" element={<ItemPage />} />
           <Route path="/category" element={<CategoryPage />} />
           <Route path="/category/:category" element={<CategoryPage />} />
