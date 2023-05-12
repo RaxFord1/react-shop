@@ -5,21 +5,18 @@ import React from "react";
 import Select from "react-select";
 import CartItemsContext from "../store/CartItemsContext";
 import { useMatch, useNavigate } from "react-router-dom";
-import { CardsListData } from "./IndexPage";
 import { useContext } from "react";
 import Card from "../components/Card";
+import CardsContext from "../store/CardsContext";
+import CategoriesContext from "../store/CategoriesContext";
 
 const CategorySelection = (props) => (
   <Select options={props.options} onChange={props.onChange} />
 );
 
-export const categories = [
-  { value: "programming", label: "Programming" },
-  { value: "learning", label: "Learning" },
-  { value: "nft", label: "NFT" },
-];
-
 function CategoryPage() {
+  const categories = useContext(CategoriesContext);
+  const cardCtx = useContext(CardsContext);
   const cartCtx = useContext(CartItemsContext);
 
   let navigation = useNavigate();
@@ -31,7 +28,7 @@ function CategoryPage() {
   }
 
   const match = useMatch("/category/:category");
-  let cards = CardsListData;
+  let cards = cardCtx;
   console.log("cards", cards);
   if (match !== null && match.params !== undefined) {
     let category = [match.params.category];

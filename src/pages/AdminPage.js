@@ -1,20 +1,22 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
-  Button, Card, Col, Form, Input, List, Modal, Row, Select, Table, Upload,
+  Button, Card, Form, Input, List, Modal, Select, Table, Upload,
 } from "antd";
 import {
   PlusOutlined, UploadOutlined, TableOutlined, AppstoreOutlined,
 } from "@ant-design/icons";
 import Template from "../layout/Template";
-import { categories } from "./CategoryPage";
-import { CardsListData } from "./IndexPage";
+import CardsContext from "../store/CardsContext";
+import CategoriesContext from "../store/CategoriesContext";
 
 const { Option } = Select;
 
 const AdminPage = () => {
+  const cardCtx = useContext(CardsContext);
+  const categoriesCtx = useContext(CategoriesContext);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState(CardsListData);
+  const [products, setProducts] = useState(cardCtx);
   const [viewType, setViewType] = useState("list");
 
   const showModal = () => {
@@ -38,6 +40,7 @@ const AdminPage = () => {
       setProducts([...products, newProduct]);
       setLoading(false);
       setVisible(false);
+      // TODO: function that adds product to all 
     }, 1000);
     console.log(products)
   };
@@ -89,7 +92,7 @@ const AdminPage = () => {
             rules={[{ required: true, message: "Please select a category!" }]}
           >
             <Select placeholder="Select a category">
-              {categories.map((category) => (
+              {categoriesCtx.categories.map((category) => (
                 <Option key={category.value} value={category.value}>
                   {category.label}
                 </Option>

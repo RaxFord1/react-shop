@@ -24,3 +24,4 @@ yarn-error.log*
 
 backend/.idea/*
 __pycache__
+backend/config/config.py

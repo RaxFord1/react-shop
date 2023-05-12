@@ -1,27 +1,28 @@
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import React, { useContext } from "react";
 import Template from "../layout/Template";
-import { CardsListData } from "./IndexPage";
 import CardListRelated from "../components/CardListRelated";
 import Sale from "../components/Sale";
 import { useParams } from "react-router-dom";
 import Reviews from "../layout/Reviews";
 import WriteReview from "../components/WriteReview";
 import CartItemsContext from "../store/CartItemsContext";
+import CardsContext from "../store/CardsContext";
 
 function ItemPage(props) {
+  const cardCtx = useContext(CardsContext);
   const cartCtx = useContext(CartItemsContext);
 
   const { id } = useParams();
 
   const itemIsSelected = cartCtx.isSelected(id);
 
-  var element = CardsListData.filter((item) => item.id === id);
+  var element = cardCtx.filter((item) => String(item.id) === String(id));
 
   if (element.length === 0) {
     return (
       <Template>
         <section className="py-5">Item not found</section>
-        <CardListRelated cards={CardsListData} />
+        <CardListRelated cards={cardCtx} />
       </Template>
     );
   }
@@ -95,7 +96,7 @@ function ItemPage(props) {
       </section>
       <WriteReview />
       <Reviews></Reviews>
-      <CardListRelated cards={CardsListData} />
+      <CardListRelated cards={cardCtx} />
     </Template>
   );
 }

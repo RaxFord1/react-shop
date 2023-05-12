@@ -12,20 +12,20 @@ const CartItemsContext = createContext({
 export function CartItemsProvider(props) {
   const [cartItemsSelected, setCartItemsSelected] = useState([]);
 
-  function addSelectedHandler(item) {
+  function addSelectedHandler(id) {
     setCartItemsSelected((prevItemsSelected) => {
-      return prevItemsSelected.concat(item);
+      return prevItemsSelected.concat(id);
     });
   }
 
   function removeSelectedHandler(itemId) {
     setCartItemsSelected((prevItemsSelected) => {
-      return prevItemsSelected.filter((item) => item.id !== itemId);
+      return prevItemsSelected.filter((id) => id !== itemId);
     });
   }
 
   function itemIsSelected(itemId) {
-    return cartItemsSelected.some((item) => item.id === itemId);
+    return cartItemsSelected.some((id) => id === itemId);
   }
 
   const context = {
