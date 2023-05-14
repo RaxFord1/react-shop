@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 import Template from "../layout/Template";
-import CardListRelated from "../components/CardListRelated";
 import Sale from "../components/Sale";
 import { useParams } from "react-router-dom";
 import Reviews from "../layout/Reviews";
 import WriteReview from "../components/WriteReview";
 import CartItemsContext from "../store/CartItemsContext";
 import CardsContext from "../store/CardsContext";
+import CardList from "../components/CardList";
 
 function ItemPage(props) {
   const cardCtx = useContext(CardsContext);
@@ -16,13 +16,13 @@ function ItemPage(props) {
 
   const itemIsSelected = cartCtx.isSelected(id);
 
-  var element = cardCtx.filter((item) => String(item.id) === String(id));
+  var element = cardCtx.items.filter((item) => String(item.id) === String(id));
 
   if (element.length === 0) {
     return (
       <Template>
         <section className="py-5">Item not found</section>
-        <CardListRelated cards={cardCtx} />
+        <CardList cards={cardCtx.items} />
       </Template>
     );
   }
@@ -96,7 +96,7 @@ function ItemPage(props) {
       </section>
       <WriteReview />
       <Reviews></Reviews>
-      <CardListRelated cards={cardCtx} />
+      <CardList cards={cardCtx.items} />
     </Template>
   );
 }

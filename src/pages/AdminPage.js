@@ -1,48 +1,113 @@
 import React, { useContext, useState } from "react";
+import { Button, List, Table, message } from "antd";
 import {
-  Button, Card, Form, Input, List, Modal, Select, Table, Upload,
-} from "antd";
-import {
-  PlusOutlined, UploadOutlined, TableOutlined, AppstoreOutlined,
+  PlusOutlined,
+  TableOutlined,
+  AppstoreOutlined,
 } from "@ant-design/icons";
 import Template from "../layout/Template";
 import CardsContext from "../store/CardsContext";
-import CategoriesContext from "../store/CategoriesContext";
-
-const { Option } = Select;
+import ItemModalForm from "../components/ItemModalForm";
+import CardAdmin from "../components/CardAdmin";
+import axios from "axios";
+import { BACKEND_URL } from "../config/cfg";
 
 const AdminPage = () => {
   const cardCtx = useContext(CardsContext);
-  const categoriesCtx = useContext(CategoriesContext);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState(cardCtx);
   const [viewType, setViewType] = useState("list");
+  const [editableItem, setEditableItem] = useState(undefined);
 
-  const showModal = () => {
+  const products = cardCtx.items;
+
+  const showModalAdd = () => {
+    setEditableItem(undefined);
     setVisible(true);
+  };
+
+  const showModalEdit = (item) => {
+    setEditableItem(item);
+    setVisible(true);
+  };
+
+  const deleteItem = (item) => {
+    axios
+      .delete(BACKEND_URL + "/item/" + item.id)
+      .then((response) => {
+        message.success("Item deleted");
+      })
+      .catch((error) => {
+        console.error("Error deleting item:", error);
+        message.error("Error deleting item");
+      })
+      .finally(() => {
+        cardCtx.reloadItems();
+      });
   };
 
   const handleCancel = () => {
     setVisible(false);
   };
 
-  const onFinish = (values) => {
+  const onFinishAdd = (values) => {
     setLoading(true);
+    var on_sale = values.on_sale;
+    if (!on_sale) {
+      on_sale = false;
+    }
+    const newProduct = {
+      ...values,
+      on_sale: on_sale,
+    };
+    axios
+      .post(BACKEND_URL + "/item", newProduct)
+      .then((response) => {
+        message.success("Item added successfully");
+      })
+      .catch((error) => {
+        console.error("Error adding item:", error);
+        message.error(
+          "Error adding                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    item"
+        );
+      })
+      .finally(() => {
+        cardCtx.reloadItems();
+      });
 
-    setTimeout(() => {
-      const newProduct = {
-        ...values,
-        id: `card${products.length + 1}`,
-        displayed_price: `$${values.price}`,
-        image: values.image.file.name,
-      };
-      setProducts([...products, newProduct]);
-      setLoading(false);
-      setVisible(false);
-      // TODO: function that adds product to all 
-    }, 1000);
-    console.log(products)
+    setLoading(false);
+    setVisible(false);
+    console.log(products);
+  };
+
+  const onFinishEdit = (values) => {
+    setLoading(true);
+    var on_sale = values.on_sale;
+    if (!on_sale) {
+      on_sale = false;
+    }
+    const newProduct = {
+      ...values,
+      on_sale: on_sale,
+    };
+    axios
+      .put(BACKEND_URL + "/item/" + editableItem.id, newProduct)
+      .then((response) => {
+        message.success("Item added successfully");
+      })
+      .catch((error) => {
+        console.error("Error adding item:", error);
+        message.error(
+          "Error adding                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    item"
+        );
+      })
+      .finally(() => {
+        cardCtx.reloadItems();
+      });
+
+    setLoading(false);
+    setVisible(false);
+    console.log(products);
   };
 
   const columns = [
@@ -57,62 +122,54 @@ const AdminPage = () => {
       key: "name",
     },
     {
+      title: "Description",
+      dataIndex: "description",
+      key: "description",
+    },
+    {
       title: "Price",
-      dataIndex: "displayed_price",
-      key: "displayed_price",
+      dataIndex: "price",
+      key: "price",
     },
     {
       title: "Category",
       dataIndex: "category",
       key: "category",
     },
+    {
+      title: "On Sale",
+      dataIndex: "on_sale",
+      key: "on_sale",
+    },
   ];
 
   return (
     <Template>
-      <Button type="primary" onClick={showModal} icon={<PlusOutlined />}>
+      <Button type="primary" onClick={showModalAdd} icon={<PlusOutlined />}>
         Add Product
       </Button>
-      <Button onClick={() => setViewType("table")} icon={<TableOutlined />} style={{ marginLeft: 10 }}>
+      <Button
+        onClick={() => setViewType("table")}
+        icon={<TableOutlined />}
+        style={{ marginLeft: 10 }}
+      >
         Table View
       </Button>
-      <Button onClick={() => setViewType("list")} icon={<AppstoreOutlined />} style={{ marginLeft: 10 }}>
+      <Button
+        onClick={() => setViewType("list")}
+        icon={<AppstoreOutlined />}
+        style={{ marginLeft: 10 }}
+      >
         List View
       </Button>
-      <Modal title="Add Product" visible={visible} onCancel={handleCancel} footer={null}>
-        <Form name="add_product" onFinish={onFinish}>
-          <Form.Item label="Name" name="name" rules={[{ required: true, message: "Please enter product name!" }]}>
-            <Input />
-          </Form.Item>
-          <Form.Item label="Price" name="price" rules={[{ required: true, message: "Please enter product price!" }]}
-          >
-            <Input type="number" />
-          </Form.Item>
-          <Form.Item label="Category" name="category"
-            rules={[{ required: true, message: "Please select a category!" }]}
-          >
-            <Select placeholder="Select a category">
-              {categoriesCtx.categories.map((category) => (
-                <Option key={category.value} value={category.value}>
-                  {category.label}
-                </Option>
-              ))}
-            </Select>
-          </Form.Item>
-          <Form.Item label="Image" name="image"
-            rules={[{ required: true, message: "Please upload an image!" }]}
-          >
-            <Upload>
-              <Button icon={<UploadOutlined />}>Upload</Button>
-            </Upload>
-          </Form.Item>
-          <Form.Item>
-            <Button type="primary" htmlType="submit" disabled={loading}>
-              Add Product
-            </Button>
-          </Form.Item>
-        </Form>
-      </Modal>
+      <ItemModalForm
+        visible={visible}
+        handleCancel={handleCancel}
+        onFinishAdd={onFinishAdd}
+        onFinishEdit={onFinishEdit}
+        loading={loading}
+        item={editableItem}
+      />
 
       {viewType === "list" ? (
         <List
@@ -120,15 +177,22 @@ const AdminPage = () => {
           dataSource={products}
           renderItem={(item) => (
             <List.Item>
-              <Card title={item.name} cover={<img alt="example" src={item.image} />}>
-                {item.displayed_price}
-              </Card>
+              <CardAdmin
+                key={item.id}
+                item={item}
+                onEdit={showModalEdit}
+                onDelete={deleteItem}
+              />
             </List.Item>
           )}
         />
       ) : (
         <Table
-          dataSource={products} columns={columns} rowKey="id" pagination={false} style={{ marginTop: 20 }}
+          dataSource={products}
+          columns={columns}
+          rowKey="id"
+          pagination={false}
+          style={{ marginTop: 20 }}
         />
       )}
     </Template>

@@ -28,7 +28,7 @@ function CategoryPage() {
   }
 
   const match = useMatch("/category/:category");
-  let cards = cardCtx;
+  let cards = cardCtx.items;
   console.log("cards", cards);
   if (match !== null && match.params !== undefined) {
     let category = [match.params.category];

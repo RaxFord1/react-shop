@@ -23,12 +23,7 @@ function CardList(props) {
         return (
           <Card
             key={item.id}
-            id={item.id}
-            image={item.image}
-            price={item.price}
-            sale={item.sale}
-            name={item.name}
-            category={item.category}
+            item={item}
           />
         );
       })}

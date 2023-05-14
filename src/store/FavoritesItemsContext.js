@@ -37,7 +37,7 @@ export function FavouriteItemsProvider(props) {
   }
 
   function addSelectedByIdHandler(id) {
-    for (const element of cardsCtx) {
+    for (const element of cardsCtx.items) {
       if (id === element.id) {
         addSelectedHandler(element);
       }

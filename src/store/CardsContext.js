@@ -1,11 +1,17 @@
-import React, { createContext, useState, useEffect } from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../config/cfg";
+import CategoriesContext from "./CategoriesContext";
 
-const CardsContext = createContext();
+const CardsContext = createContext({
+  items: [],
+  reloadItems: () => {},
+});
 
 export const CardsProvider = ({ children }) => {
   const [cardsData, setCardsData] = useState([]);
+  const categoriesCtx = useContext(CategoriesContext);
+  const [needUpdateCategories, setNeedUpdateCategories] = useState();
 
   function loadItems() {
     axios
@@ -13,17 +19,21 @@ export const CardsProvider = ({ children }) => {
       .then((response) => {
         const items = response.data.items;
 
-        const cards = items.map((item) => ({
-          id: item.id,
-          name: item.name,
-          displayed_price: `$${item.price.toFixed(2)}`,
-          price: item.price,
-          image: item.image_url,
-          category: item.category_id,
-          description: item.description,
-        }));
+        const cards = items.map((item) => {
+          return {
+            id: item.id,
+            name: item.name,
+            displayed_price: `$${item.price.toFixed(2)}`,
+            price: item.price,
+            image: item.image_url,
+            category_id: item.category_id,
+            description: item.description,
+            on_sale: item.on_sale,
+          };
+        });
 
         setCardsData(cards);
+        setNeedUpdateCategories(!needUpdateCategories);
       })
       .catch((error) => {
         console.error("Error fetching items:", error);
@@ -101,8 +111,29 @@ export const CardsProvider = ({ children }) => {
     loadItems();
   }, []);
 
+  useEffect(() => {
+    const updatedCardsData = cardsData.map((card) => {
+      var category = categoriesCtx.getCategory(card.category_id);
+      if (category) {
+        if (category.length > 0) {
+          category = category[0].label;
+        }
+      }
+      return {
+        ...card,
+        category: category,
+      };
+    });
+    setCardsData(updatedCardsData);
+  }, [categoriesCtx.categories, needUpdateCategories]);
+
+  const context = {
+    items: cardsData,
+    reloadItems: loadItems,
+  };
+
   return (
-    <CardsContext.Provider value={cardsData}>{children}</CardsContext.Provider>
+    <CardsContext.Provider value={context}>{children}</CardsContext.Provider>
   );
 };
 

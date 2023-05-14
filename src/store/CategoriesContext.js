@@ -34,13 +34,13 @@ export const CategoriesProvider = ({ children }) => {
       });
   }, []);
 
-  function getCategiryById(categoryId) {
+  function getCategoryById(categoryId) {
     return categoriesData.filter((element) => element.id === categoryId) 
   }
 
   const context = {
     categories: categoriesData,
-    getCategory: getCategiryById
+    getCategory: getCategoryById
   };
 
   return (
