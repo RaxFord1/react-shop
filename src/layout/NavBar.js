@@ -27,55 +27,28 @@ function NavBar(props) {
               </NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className="nav-link" to="/admin">
-                Admin
+              <NavLink className="nav-link active" to="/category">
+                Category
               </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/login">
-                LoginPage
-              </NavLink>
-            </li>
-            <li className="nav-item dropdown">
-              <NavLink
-                className="nav-link dropdown-toggle"
-                id="navbarDropdown"
-                to="#"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Shop
-              </NavLink>
-              <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li>
-                  <NavLink className="dropdown-item" to="/category">
-                    Category
-                  </NavLink>
-                </li>
-                <li>
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <NavLink className="dropdown-item" to="#!">
-                    
-                  </NavLink>
-                </li>
-                <li>
-                  <NavLink className="dropdown-item" to="#!">
-                    New Arrivals
-                  </NavLink>
-                </li>
-              </ul>
             </li>
             <li className="nav-item">
               <NavLink className="nav-link active" to="/debug">
                 Debug
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/admin">
+                Admin
+              </NavLink>
+            </li>
           </ul>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/login">
+              LoginPage
+            </NavLink>
+          </li>
           <Cart counter={props.counter} />
-          <LoginModal  autorized={autorized} onClick={onAuth} />
+          <LoginModal autorized={autorized} onClick={onAuth} />
         </div>
       </div>
     </nav>
