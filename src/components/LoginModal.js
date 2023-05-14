@@ -4,6 +4,7 @@ import { LoadingOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { BACKEND_URL } from "../config/cfg";
 import UserContext from "../store/UserContext";
+import { NavLink } from "react-router-dom";
 
 const LoginModal = () => {
   const userCtx = useContext(UserContext);
@@ -39,7 +40,7 @@ const LoginModal = () => {
         }
       })
       .finally(() => {
-        console.log("finaly")
+        console.log("finaly");
         // favCtx.reloadFavorites();
       });
     // Тут можна виконати ваш запит на авторизацію
@@ -114,6 +115,9 @@ const LoginModal = () => {
           </Form.Item>
         </Form>
       </Modal>
+      <NavLink className="nav-link" to="/login">
+        Register Page
+      </NavLink>
     </>
   );
 };
