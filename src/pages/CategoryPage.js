@@ -3,7 +3,6 @@ import Header from "../components/Header";
 
 import React from "react";
 import Select from "react-select";
-import CartItemsContext from "../store/CartItemsContext";
 import { useMatch, useNavigate } from "react-router-dom";
 import { useContext } from "react";
 import Card from "../components/Card";
@@ -17,7 +16,6 @@ const CategorySelection = (props) => (
 function CategoryPage() {
   const categories = useContext(CategoriesContext);
   const cardCtx = useContext(CardsContext);
-  const cartCtx = useContext(CartItemsContext);
 
   let navigation = useNavigate();
 
@@ -36,11 +34,7 @@ function CategoryPage() {
   }
 
   return (
-    <Template
-      selected_counter={
-        cartCtx.totalSelectedItems ? cartCtx.totalSelectedItems : 0
-      }
-    >
+    <Template>
       <Header
         title="Buy any file you want"
         description="With our website u can achieve anything!"

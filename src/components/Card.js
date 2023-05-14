@@ -14,11 +14,7 @@ function Card(props) {
 
   function toggleSelected() {
     var id = item.id;
-    if (cartCtx.isSelected(id)) {
-      cartCtx.removeItem(id);
-    } else {
-      cartCtx.addItem(id);
-    }
+    cartCtx.toggleSelected(id)
   }
 
   function toggleFavourite() {

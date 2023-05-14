@@ -76,7 +76,7 @@ export function FavouriteItemsProvider(props) {
 
   function reloadFavoritesFromBackend() {
     console.log("userCtx.userId", userCtx.userId);
-    if (userCtx.userId !== undefined) {
+    if (userCtx.userId) {
       setFavouriteItemsSelected([]);
       axios
         .get(BACKEND_URL + "/favourite/" + userCtx.userId)

@@ -4,11 +4,9 @@ import { LoadingOutlined } from "@ant-design/icons";
 import axios from "axios";
 import { BACKEND_URL } from "../config/cfg";
 import UserContext from "../store/UserContext";
-import FavouriteContext from "../store/FavoritesItemsContext";
 
 const LoginModal = () => {
   const userCtx = useContext(UserContext);
-  const favCtx = useContext(FavouriteContext);
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);

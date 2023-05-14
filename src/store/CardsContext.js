@@ -13,7 +13,7 @@ export const CardsProvider = ({ children }) => {
   const categoriesCtx = useContext(CategoriesContext);
   const [needUpdateCategories, setNeedUpdateCategories] = useState();
 
-  function loadItems() {
+  async function loadItems() {
     axios
       .get(BACKEND_URL + "/items")
       .then((response) => {
