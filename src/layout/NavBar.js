@@ -41,12 +41,13 @@ function NavBar(props) {
                 Admin
               </NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink className="nav-link" to="/login">
+                LoginPage
+              </NavLink>
+            </li>
           </ul>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/login">
-              LoginPage
-            </NavLink>
-          </li>
+
           <Cart counter={props.counter} />
           <LoginModal autorized={autorized} onClick={onAuth} />
         </div>
