@@ -82,9 +82,11 @@ export function FavouriteItemsProvider(props) {
         .get(BACKEND_URL + "/favourite/" + userCtx.userId)
         .then((response) => {
           const fav_ids = response.data.favorites;
-          for (const id of fav_ids) {
-            addSelectedHandler(id);
-            console.log(id);
+          if (fav_ids) {
+            for (const id of fav_ids) {
+              addSelectedHandler(id);
+              console.log(id);
+            }
           }
           message.success("Fetched favs!");
         })
