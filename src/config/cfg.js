@@ -1,1 +1,1 @@
-export const BACKEND_URL = "https://react-shop-backend-git-main-raxford1.vercel.app/";
+export const BACKEND_URL = "https://react-shop-backend-nine.vercel.app";
