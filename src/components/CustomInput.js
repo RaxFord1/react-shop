@@ -1,14 +1,18 @@
 import React from "react";
 import { useField } from "formik";
+import { Form, Input } from "antd";
 
-const CustomInput = ({ label, ...props }) => {
+const FormField = ({ label, ...props }) => {
   const [field, meta] = useField(props);
+
   return (
-    <div>
-      <label htmlFor={props.id || props.name}>{label}</label>
-      <input {...field} {...props} />
-      {meta.touched && meta.error ? <div>{meta.error}</div> : null}
-    </div>
+    <Form.Item
+      label={label}
+      validateStatus={meta.touched && meta.error ? "error" : ""}
+      help={meta.touched && meta.error ? meta.error : ""}
+    >
+      <Input {...field} {...props} />
+    </Form.Item>
   );
 };
 
@@ -17,11 +21,11 @@ export const CustomTextArea = ({ label, ...props }) => {
   return (
     <div>
       <label htmlFor={props.id || props.name}>{label}</label>
-      <br/>
+      <br />
       <textarea {...field} {...props} />
       {meta.touched && meta.error ? <div>{meta.error}</div> : null}
     </div>
   );
 };
 
-export default CustomInput;
+export default FormField;

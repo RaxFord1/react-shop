@@ -1,21 +1,15 @@
-import LoginForm from "../components/LoginForm";
 import Template from "../layout/Template";
-import CommentForm from "../components/CommentForm";
 import RegistrationForm from "../components/RegistrationForm";
 
-const LoginPage = () => {
+const RegisterPage = () => {
   return (
     <Template>
-      <h1>Login Form:</h1>
-      <LoginForm />
-      <hr />
-      <h1>Custom input:</h1>
-      <CommentForm />
-      <hr />
-      <h1>Registration Form:</h1>
-      <RegistrationForm />
+      <div className="text-center" style={{ margin: "0 auto", maxWidth: 400 }}>
+        <h1>Registration Form:</h1>
+        <RegistrationForm />
+      </div>
     </Template>
   );
 };
 
-export default LoginPage;
+export default RegisterPage;

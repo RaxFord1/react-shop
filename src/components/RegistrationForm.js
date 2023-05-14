@@ -1,7 +1,10 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import CustomInput from "./CustomInput";
+import FormField from "./CustomInput";
+import { Button, message } from "antd";
+import axios from "axios";
+import { BACKEND_URL } from "../config/cfg";
 
 const validationSchema = Yup.object({
   firstName: Yup.string()
@@ -32,26 +35,42 @@ const initialValues = {
   password: "",
 };
 
-const onSubmit = (values) => {
-  console.log("Form data:", values);
-  alert("Success");
-};
-
-const RegistrationForm = () => (
-  <Formik
-    initialValues={initialValues}
-    validationSchema={validationSchema}
-    onSubmit={onSubmit}
-  >
-    <Form>
-      <CustomInput label="First Name:" name="firstName" type="text" />
-      <CustomInput label="Last Name:" name="lastName" type="text" />
-      <CustomInput label="Email:" name="email" type="email" />
-      <CustomInput label="Age:" name="age" type="number" />
-      <CustomInput label="Password:" name="password" type="password" />
-      <button type="submit">Submit</button>
-    </Form>
-  </Formik>
-);
+function RegistrationForm() {
+  function registerOnFinish(values) {
+    axios
+      .post(BACKEND_URL + "/user", {
+        first_name: values.firstName,
+        last_name: values.lastName,
+        email: values.email,
+        password_hash: values.password,
+      })
+      .then((response) => {
+        console.error("Successfully registered:", response);
+        message.success("Successfully registered");
+      })
+      .catch((error) => {
+        console.error("Error registering:", error);
+        message.error("Error registering");
+      });
+  }
+  return (
+    <Formik
+      initialValues={initialValues}
+      validationSchema={validationSchema}
+      onSubmit={registerOnFinish}
+    >
+      <Form>
+        <FormField label="First Name:" name="firstName" type="text" />
+        <FormField label="Last Name:" name="lastName" type="text" />
+        <FormField label="Email:" name="email" type="email" />
+        <FormField label="Age:" name="age" type="number" />
+        <FormField label="Password:" name="password" type="password" />
+        <Button type="primary" htmlType="submit">
+          Submit
+        </Button>
+      </Form>
+    </Formik>
+  );
+}
 
 export default RegistrationForm;
