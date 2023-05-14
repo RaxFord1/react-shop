@@ -1,12 +1,11 @@
 import Sale from "./Sale";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import Favourite from "./Favourite";
 import FavouriteContext from "../store/FavoritesItemsContext";
 import { CSSTransition } from "react-transition-group";
 import "./Card.modules.css";
 import CartItemsContext from "../store/CartItemsContext";
-import CategoriesContext from "../store/CategoriesContext";
 
 function Card(props) {
   const favCtx = useContext(FavouriteContext);
@@ -22,13 +21,8 @@ function Card(props) {
     }
   }
 
-  function addFav() {
-    var id = item.id;
-    if (favCtx.isSelected(id)) {
-      favCtx.removeItem(id);
-    } else {
-      favCtx.addItem(id);
-    }
+  function toggleFavourite() {
+    favCtx.toggleSelected(item.id);
   }
 
   return (
@@ -37,7 +31,7 @@ function Card(props) {
         <Sale sale={item.on_sale} />
 
         <img className="card-img-top" src={item.image} alt="..." />
-        <Favourite onClick={addFav} value={favCtx.isSelected(item.id)} />
+        <Favourite onClick={toggleFavourite} value={favCtx.isSelected(item.id)} />
 
         <div className="card-body p-4">
           <div className="text-center">

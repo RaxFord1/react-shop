@@ -3,14 +3,14 @@ import axios from "axios";
 import { BACKEND_URL } from "../config/cfg";
 
 const CategoriesContext = createContext({
-    categories: [{}],
-    getCategory: (id) => {},
+  categories: [{}],
+  getCategory: (id) => {},
 });
 
 export const CategoriesProvider = ({ children }) => {
   const [categoriesData, setCategoriesData] = useState([{}]);
 
-  useEffect(() => {
+  function loadItems() {
     axios
       .get(BACKEND_URL + "/categories")
       .then((response) => {
@@ -32,15 +32,20 @@ export const CategoriesProvider = ({ children }) => {
       .catch((error) => {
         console.error("Error fetching categories:", error);
       });
+  }
+
+  useEffect(() => {
+    loadItems();
   }, []);
 
   function getCategoryById(categoryId) {
-    return categoriesData.filter((element) => element.id === categoryId) 
+    return categoriesData.filter((element) => element.id === categoryId);
   }
 
   const context = {
     categories: categoriesData,
-    getCategory: getCategoryById
+    getCategory: getCategoryById,
+    reloadFromBackend: loadItems,
   };
 
   return (

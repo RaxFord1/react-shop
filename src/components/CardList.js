@@ -1,13 +1,13 @@
 import Card from "./Card";
 import React from "react";
 
-function cardsToShowCalc(cards, categories) {
+export function cardsToShowCalc(cards, categories) {
   categories = categories === undefined ? [] : categories;
   if (categories.length === 0) {
     return cards;
   } else {
     return cards.filter((item) =>
-      categories.some((cat) => cat.value === item.category)
+      categories.some((cat) => cat.label === item.category)
     );
   }
 }

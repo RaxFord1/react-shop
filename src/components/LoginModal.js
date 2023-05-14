@@ -25,7 +25,7 @@ const LoginModal = () => {
           setLoading(false);
           setVisible(false);
           setIsAuthenticated(true);
-          userCtx.setUserId(res.id);
+          userCtx.setUserId(res.data.id);
           message.success("Ви успішно увійшли!");
         } else {
           message.error(res.message);
@@ -42,7 +42,7 @@ const LoginModal = () => {
       })
       .finally(() => {
         console.log("finaly")
-        favCtx.reloadFavorites();
+        // favCtx.reloadFavorites();
       });
     // Тут можна виконати ваш запит на авторизацію
     setTimeout(() => {}, 2000);
