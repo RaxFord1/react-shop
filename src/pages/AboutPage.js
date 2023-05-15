@@ -1,3 +1,4 @@
+import { useEffect, useState } from "react";
 import Template from "../layout/Template";
 
 const CustomHeading = ({ children }) => {
@@ -30,11 +31,49 @@ const paragraphStyles = {
   marginBottom: "30px",
 };
 
+const backgroundImages = [
+  "blue_slime_dark_background_5e792fce-ecdd-4e25-a2d9-b1203ca3e333.png",
+  "blue_slime_dark_background.png",
+  "blue_slime_dark_background_8e09bc85-205d-43f6-9cf7-c869e3911c0e.png",
+  "blue_slime_2a6c7085-7c79-461a-8cbe-c89760c148c0.png",
+  "blue_slime_pattern_56570c53-6e85-459b-a682-85fb49811361.png",
+  "blue_slime_pattern_88404631-c792-4e94-80ec-8f8e9d071748.png",
+];
+
+const logoImages = [
+  "blue_slime_boy_0_25657774-776e-4c0c-9b62-0c080c40ba6f.png",
+  "blue_slime_boy_1_25657774-776e-4c0c-9b62-0c080c40ba6f.png",
+  "blue_slime_boy_2_25657774-776e-4c0c-9b62-0c080c40ba6f.png",
+  "blue_slime_boy_3_25657774-776e-4c0c-9b62-0c080c40ba6f.png",
+
+  "blue_slime_boy_0_ba61e277-3e59-441a-8918-60e9f627e546.png",
+  "blue_slime_boy_1_ba61e277-3e59-441a-8918-60e9f627e546.png",
+  "blue_slime_boy_2_ba61e277-3e59-441a-8918-60e9f627e546.png",
+  "blue_slime_boy_3_ba61e277-3e59-441a-8918-60e9f627e546.png",
+];
+
 const AboutPage = () => {
+  const [randomImageBackground, setRandomImageBackground] = useState("");
+  const [randomImageLogo, setRandomImageLogo] = useState("");
+
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * backgroundImages.length);
+    const selectedImage = backgroundImages[randomIndex];
+    const timestamp = Date.now();
+    const imageUrl = `${selectedImage}?v=${timestamp}`;
+    setRandomImageBackground(imageUrl);
+  }, []);
+
+  useEffect(() => {
+    const randomIndex = Math.floor(Math.random() * logoImages.length);
+    const selectedImage = logoImages[randomIndex];
+    setRandomImageLogo(selectedImage);
+  }, []);
+
   return (
     <div
       style={{
-        backgroundImage: "url('blue_slime_dark_background.png')",
+        backgroundImage: `url('${randomImageBackground}')`,
         // backgroundSize: "cover",
         backgroundRepeat: "repeat",
       }}
@@ -51,7 +90,7 @@ const AboutPage = () => {
           }}
         >
           <img
-            src="about_image.png"
+            src={randomImageLogo}
             alt="Rimuru Shop Logo"
             className="rounded-circle my-4"
             style={{ width: "300px", height: "300px" }}
