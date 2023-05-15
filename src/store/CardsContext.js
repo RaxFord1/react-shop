@@ -6,6 +6,8 @@ import CategoriesContext from "./CategoriesContext";
 const CardsContext = createContext({
   items: [],
   reloadItems: () => {},
+  minPrice: () => {},
+  maxPrice: () => {},
 });
 
 export const CardsProvider = ({ children }) => {
@@ -107,6 +109,20 @@ export const CardsProvider = ({ children }) => {
     // ]);
   }
 
+  function minPrice() {
+    if (cardsData.length === 0) {
+      return 0; // default value
+    }
+    return Math.min(...cardsData.map((card) => card.price));
+  }
+
+  function maxPrice() {
+    if (cardsData.length === 0) {
+      return 100; // default value
+    }
+    return Math.max(...cardsData.map((card) => card.price));
+  }
+
   useEffect(() => {
     loadItems();
   }, []);
@@ -130,6 +146,8 @@ export const CardsProvider = ({ children }) => {
   const context = {
     items: cardsData,
     reloadItems: loadItems,
+    minPrice: minPrice,
+    maxPrice: maxPrice,
   };
 
   return (
