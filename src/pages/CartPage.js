@@ -11,16 +11,19 @@ function CartPage() {
   const cardCts = useContext(CardsContext);
 
   function handleSubmitOrder() {
-    axios
-      .post(BACKEND_URL + "/pay", { order_id: cartCtx.cartId })
-      .then((response) => {
-        message.success("Successfully submited order!");
-      })
-      .catch((error) => {
-        console.error("Error submiting order:", error);
-        message.error("Error submiting order");
-      });
-
+    if (cartCtx.selectedItems && cartCtx.selectedItems.length > 0) {
+      axios
+        .post(BACKEND_URL + "/pay", { order_id: cartCtx.cartId })
+        .then((response) => {
+          message.success("Successfully submited order!");
+        })
+        .catch((error) => {
+          console.error("Error submiting order:", error);
+          message.error("Error submiting order");
+        });
+    } else {
+      message.error("Can't submit empty order!");
+    }
     cartCtx.needReload();
   }
 
@@ -65,7 +68,12 @@ function CartPage() {
     <Template>
       <div>
         <h1>Cart</h1>
-        <Table rowKey="id" dataSource={cartItems} columns={columns} pagination={false} />
+        <Table
+          rowKey="id"
+          dataSource={cartItems}
+          columns={columns}
+          pagination={false}
+        />
         <div style={{ marginTop: 20 }}>
           <h3>Total Price: {totalPrice}</h3>
           <Button type="primary" onClick={handleSubmitOrder}>

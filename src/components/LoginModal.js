@@ -91,9 +91,7 @@ const LoginModal = () => {
           <Form.Item
             label="Email"
             name="email"
-            rules={[
-              { required: true, message: "Please, enter your email!" },
-            ]}
+            rules={[{ required: true, message: "Please, enter your email!" }]}
           >
             <Input />
           </Form.Item>
