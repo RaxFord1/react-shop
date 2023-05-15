@@ -114,10 +114,10 @@ const LoginModal = () => {
             </Button>
           </Form.Item>
         </Form>
+        <NavLink className="nav-link" to="/login">
+          Register Page
+        </NavLink>
       </Modal>
-      <NavLink className="nav-link" to="/login">
-        Register Page
-      </NavLink>
     </>
   );
 };

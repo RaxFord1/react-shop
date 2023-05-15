@@ -54,22 +54,24 @@ function RegistrationForm() {
       });
   }
   return (
-    <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-      onSubmit={registerOnFinish}
-    >
-      <Form>
-        <FormField label="First Name:" name="firstName" type="text" />
-        <FormField label="Last Name:" name="lastName" type="text" />
-        <FormField label="Email:" name="email" type="email" />
-        <FormField label="Age:" name="age" type="number" />
-        <FormField label="Password:" name="password" type="password" />
-        <Button type="primary" htmlType="submit">
-          Submit
-        </Button>
-      </Form>
-    </Formik>
+    <div className="p-3 mb-2 bg-light text-dark border rounded">
+      <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={registerOnFinish}
+      >
+        <Form>
+          <FormField label="First Name:" name="firstName" type="text" />
+          <FormField label="Last Name:" name="lastName" type="text" />
+          <FormField label="Email:" name="email" type="email" />
+          <FormField label="Age:" name="age" type="number" />
+          <FormField label="Password:" name="password" type="password" />
+          <Button type="primary" htmlType="submit">
+            Submit
+          </Button>
+        </Form>
+      </Formik>
+    </div>
   );
 }
 
