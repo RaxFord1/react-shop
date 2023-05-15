@@ -27,6 +27,11 @@ function NavBar(props) {
               </NavLink>
             </li>
             <li className="nav-item">
+              <NavLink className="nav-link active" to="/about">
+                About
+              </NavLink>
+            </li>
+            <li className="nav-item">
               <NavLink className="nav-link active" to="/category">
                 Category
               </NavLink>

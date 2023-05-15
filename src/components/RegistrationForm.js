@@ -67,7 +67,7 @@ function RegistrationForm() {
           <FormField label="Age:" name="age" type="number" />
           <FormField label="Password:" name="password" type="password" />
           <Button type="primary" htmlType="submit">
-            Submit
+            Register
           </Button>
         </Form>
       </Formik>

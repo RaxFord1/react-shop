@@ -7,6 +7,7 @@ import AdminPage from "./pages/AdminPage";
 import LoginPage from "./pages/LoginPage";
 import AllContextsWrapper from "./store/AllContextsWrapper";
 import CartPage from "./pages/CartPage";
+import AboutPage from "./pages/AboutPage";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cart" element={<CartPage />} />
+        <Route path="/about" element={<AboutPage />} />
       </Routes>
       <DebugPage />
     </AllContextsWrapper>

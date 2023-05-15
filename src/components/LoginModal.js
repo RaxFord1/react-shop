@@ -25,7 +25,7 @@ const LoginModal = () => {
           setVisible(false);
           setIsAuthenticated(true);
           userCtx.setUserId(res.data.id);
-          message.success("Ви успішно увійшли!");
+          message.success("Successfully logged in!");
         } else {
           message.error(res.message);
         }
@@ -62,22 +62,22 @@ const LoginModal = () => {
   const handleLogout = () => {
     setIsAuthenticated(false);
     userCtx.setUserId(undefined);
-    message.success("Ви успішно вийшли!");
+    message.success("Successfully logged out!");
   };
 
   return (
     <>
       {isAuthenticated ? (
         <Button type="primary" onClick={handleLogout}>
-          Вийти
+          Logout
         </Button>
       ) : (
         <Button type="primary" onClick={showModal}>
-          Увійти
+          Login
         </Button>
       )}
       <Modal
-        title="Авторизація"
+        title="Authorization"
         visible={visible}
         onCancel={handleCancel}
         footer={null}
@@ -92,17 +92,17 @@ const LoginModal = () => {
             label="Email"
             name="email"
             rules={[
-              { required: true, message: "Будь ласка, введіть ваш email!" },
+              { required: true, message: "Please, enter your email!" },
             ]}
           >
             <Input />
           </Form.Item>
 
           <Form.Item
-            label="Пароль"
+            label="Password"
             name="password"
             rules={[
-              { required: true, message: "Будь ласка, введіть ваш пароль!" },
+              { required: true, message: "Please, enter your password!" },
             ]}
           >
             <Input.Password />
@@ -110,7 +110,7 @@ const LoginModal = () => {
 
           <Form.Item>
             <Button type="primary" htmlType="submit" disabled={loading}>
-              {loading ? <Spin indicator={<LoadingOutlined />} /> : "Увійти"}
+              {loading ? <Spin indicator={<LoadingOutlined />} /> : "Login"}
             </Button>
           </Form.Item>
         </Form>
