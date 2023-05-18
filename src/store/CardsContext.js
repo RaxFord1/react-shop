@@ -2,6 +2,7 @@ import React, { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { BACKEND_URL } from "../config/cfg";
 import CategoriesContext from "./CategoriesContext";
+import FullScreenLoader from "../components/PreLoader";
 
 const CardsContext = createContext({
   items: [],
@@ -13,9 +14,11 @@ const CardsContext = createContext({
 export const CardsProvider = ({ children }) => {
   const [cardsData, setCardsData] = useState([]);
   const categoriesCtx = useContext(CategoriesContext);
+  const [loading, setLoading] = useState(true);
   const [needUpdateCategories, setNeedUpdateCategories] = useState();
 
   async function loadItems() {
+    setLoading(true);
     axios
       .get(BACKEND_URL + "/items")
       .then((response) => {
@@ -40,6 +43,11 @@ export const CardsProvider = ({ children }) => {
       .catch((error) => {
         console.error("Error fetching items:", error);
         setTimeout(loadItems, 5000);
+      })
+      .finally(() => {
+        setTimeout(() => {
+          setLoading(false);
+        }, 1000);
       });
     // setCardsData([
     //   {
@@ -151,7 +159,9 @@ export const CardsProvider = ({ children }) => {
   };
 
   return (
-    <CardsContext.Provider value={context}>{children}</CardsContext.Provider>
+    <CardsContext.Provider value={context}>
+      {loading ? <FullScreenLoader /> : children}
+    </CardsContext.Provider>
   );
 };
 
