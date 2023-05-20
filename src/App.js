@@ -9,6 +9,9 @@ import AllContextsWrapper from "./store/AllContextsWrapper";
 import CartPage from "./pages/CartPage";
 import AboutPage from "./pages/AboutPage";
 import { ReviewsItemsProvider } from "./store/ReviewsContext";
+import ReduxPage from "./pages/ReduxPage";
+import { Provider } from "react-redux";
+import store from "./redux/store";
 
 function App() {
   return (
@@ -29,6 +32,14 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/about" element={<AboutPage />} />
+        <Route
+          path="/redux"
+          element={
+            <Provider store={store}>
+              <ReduxPage />
+            </Provider>
+          }
+        />
       </Routes>
       <DebugPage />
     </AllContextsWrapper>

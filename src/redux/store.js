@@ -1,8 +1,9 @@
 // store.js
-import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
-import { reviewsReducer } from './reducers';
+import { configureStore } from '@reduxjs/toolkit';
+import shoppingReducer from './shoppingSlice';
 
-const store = createStore(reviewsReducer, applyMiddleware(thunk));
-
-export default store;
+export default configureStore({
+  reducer: {
+    shopping: shoppingReducer,
+  },
+});
