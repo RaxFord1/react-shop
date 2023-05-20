@@ -78,7 +78,7 @@ const LoginModal = () => {
       )}
       <Modal
         title="Authorization"
-        visible={visible}
+        open={visible}
         onCancel={handleCancel}
         footer={null}
       >

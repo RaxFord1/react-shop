@@ -8,13 +8,21 @@ import LoginPage from "./pages/LoginPage";
 import AllContextsWrapper from "./store/AllContextsWrapper";
 import CartPage from "./pages/CartPage";
 import AboutPage from "./pages/AboutPage";
+import { ReviewsItemsProvider } from "./store/ReviewsContext";
 
 function App() {
   return (
     <AllContextsWrapper>
       <Routes>
         <Route path="/" element={<IndexPage />} />
-        <Route path="/item/:id" element={<ItemPage />} />
+        <Route
+          path="/item/:id"
+          element={
+            <ReviewsItemsProvider>
+              <ItemPage />
+            </ReviewsItemsProvider>
+          }
+        />
         <Route path="/category" element={<CategoryPage />} />
         <Route path="/category/:category" element={<CategoryPage />} />
         <Route path="/admin" element={<AdminPage />} />

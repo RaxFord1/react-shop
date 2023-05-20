@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Template from "../layout/Template";
 import Sale from "../components/Sale";
 import { useParams } from "react-router-dom";

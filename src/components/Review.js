@@ -5,6 +5,22 @@ const randomBg = () => {
   return "#" + randomColor;
 };
 
+function getLetters(text) {
+  const words = text.split(" ");
+  let result = "";
+  for (let i = 0; i < words.length && result.length < 2; i++) {
+    const word = words[i];
+    if (word.length > 0) {
+      result += word.charAt(0);
+    }
+  }
+  result.toUpperCase();
+  if (result.length > 0) {
+    return result;
+  }
+  return undefined;
+}
+
 function Review(props) {
   return (
     <div className="col-md-4">
@@ -18,12 +34,12 @@ function Review(props) {
             alt=""
             sx={{ width: 80, height: 80, bgcolor: randomBg() }}
           >
-            N
+            {getLetters(props.author)}
           </Avatar>
         </div>
 
         <div className="user-content">
-          <h5 className="mb-0">{props.author}</h5>
+          <h5 className="mb-0 mt-2">{props.author}</h5>
           <span>{props.position}</span>
           <p>
             <span
@@ -33,18 +49,12 @@ function Review(props) {
                 maxHeight: 110,
                 justifyContent: "center",
                 flexDirection: "column",
+                lineHeight: 1
               }}
             >
               {props.message}
             </span>
           </p>
-        </div>
-
-        <div className="ratings">
-          <i className="bi bi-star-fill"></i>
-          <i className="bi bi-star-fill"></i>
-          <i className="bi bi-star-fill"></i>
-          <i className="bi bi-star-fill"></i>
         </div>
       </div>
     </div>
