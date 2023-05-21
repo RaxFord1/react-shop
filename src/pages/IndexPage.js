@@ -11,7 +11,7 @@ import MinMaxSlider from "../components/MinMaxSlider";
 
 //orig: https://startbootstrap.github.io/startbootstrap-shop-homepage/?
 
-function IndexPage(props) {
+function IndexPage() {
   const categoriesCtx = useContext(CategoriesContext);
   const cardCtx = useContext(CardsContext);
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -38,7 +38,7 @@ function IndexPage(props) {
         title="Buy any file you want"
         description="With our website u can achieve anything!"
       />
-      <Body>
+      <section className="py-5">
         <Select
           options={categoriesCtx.categories}
           isMulti
@@ -62,7 +62,7 @@ function IndexPage(props) {
             categories={selectedCategories}
           />
         </div>
-      </Body>
+      </section>
     </Template>
   );
 }

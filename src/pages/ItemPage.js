@@ -8,7 +8,7 @@ import CartItemsContext from "../store/CartItemsContext";
 import CardsContext from "../store/CardsContext";
 import CardList from "../components/CardList";
 
-function ItemPage(props) {
+function ItemPage() {
   const cardCtx = useContext(CardsContext);
   const cartCtx = useContext(CartItemsContext);
 

@@ -3,15 +3,7 @@ import React, { useState } from "react";
 import Cart from "../components/Cart";
 import LoginModal from "../components/LoginModal";
 
-function NavBar(props) {
-  const [autorized, setAuthorized] = useState(false);
-  function onAuth() {
-    if (autorized) {
-      setAuthorized(false);
-    } else {
-      setAuthorized(true);
-    }
-  }
+function NavBar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container px-4 px-lg-5">
@@ -53,8 +45,8 @@ function NavBar(props) {
             </li>
           </ul>
 
-          <Cart counter={props.counter} />
-          <LoginModal autorized={autorized} onClick={onAuth} />
+          <Cart />
+          <LoginModal/>
         </div>
       </div>
     </nav>
