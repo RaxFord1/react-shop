@@ -1,5 +1,5 @@
 # React-Shop
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/RaxFord1/react-shop/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/RaxFord1/react-shop/blob/master/LICENSE.md)
 
 ## Table of Contents
 - [About](#about)
