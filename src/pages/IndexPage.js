@@ -1,6 +1,5 @@
 import Template from "../layout/Template";
 import Header from "../components/Header";
-import Body from "../components/Body";
 import CardList from "../components/CardList";
 
 import React, { useState, useContext, useEffect } from "react";
