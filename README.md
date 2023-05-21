@@ -8,12 +8,17 @@
 - [File Structure](#file-structure)
 - [Backend Information](#backend-information)
 - [How to Use](#how-to-use)
-- [Acknowledgements](#acknowledgements)
 
 ## About
 Welcome to React-Shop! This is a robust e-commerce web application designed with React.js. Packed with an extensive range of features including displaying items and categories, cart functionality, user reviews, and an admin panel. The application provides a comprehensive framework for individuals or teams aspiring to build an e-commerce platform.
 
 Explore a variety of items, register to create an account, log in, add items to your cart, filter items by categories and price, select your favorites, and checkout when you're ready. Every item comes with a detailed description to enhance your shopping experience. For the administrators, React-Shop offers a panel to manage items and categories by adding, editing, or deleting as necessary.
+
+## Screenshot
+
+![React-Shop Screenshot](./public/screenshot.png)
+
+Here's a snapshot of what React-Shop looks like. Feel free to navigate through the application to explore more features.
 
 ## Features
 React-Shop offers a variety of features, including:
