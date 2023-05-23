@@ -6,15 +6,15 @@ import { CategoriesProvider } from "./CategoriesContext";
 
 function AllContextsWrapper({ children }) {
   return (
-    <CategoriesProvider>
-      <CardsProvider>
-        <UserProvider>
+    <UserProvider>
+      <CategoriesProvider>
+        <CardsProvider>
           <FavouriteItemsProvider>
             <CartItemsProvider>{children}</CartItemsProvider>
           </FavouriteItemsProvider>
-        </UserProvider>
-      </CardsProvider>
-    </CategoriesProvider>
+        </CardsProvider>
+      </CategoriesProvider>
+    </UserProvider>
   );
 }
 

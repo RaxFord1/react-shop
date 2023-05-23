@@ -23,13 +23,14 @@ function ItemModalForm(props) {
   return (
     <Modal
       title={item ? "Edit Product" : "Add Product"}
-      visible={props.visible}
+      open={props.visible}
       onCancel={props.handleCancel}
       footer={null}
     >
       <Form
         form={form}
         name="add_product"
+        onSubmit={e => {e.preventDefault(); console.log("prevent Default")}}
         onFinish={item ? props.onFinishEdit : props.onFinishAdd}
       >
         <Form.Item

@@ -42,8 +42,9 @@ function ItemPage() {
               <Sale sale={element.sale} />
               <img
                 className="card-img-top mb-5 mb-md-0"
-                src="https://dummyimage.com/600x700/dee2e6/6c757d.jpg"
+                src={element.image}
                 alt="..."
+                style={{maxHeight: "600px", maxWidth: "600px"}}
               />
             </div>
 
