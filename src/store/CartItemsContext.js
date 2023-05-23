@@ -109,7 +109,7 @@ export function CartItemsProvider(props) {
 
   function removeSelected(itemId) {
     setCartItemsSelected((prevItemsSelected) => {
-      return prevItemsSelected.filter((id) => id !== itemId);
+      return prevItemsSelected.filter((id) => String(id) !== String(itemId));
     });
   }
 
@@ -122,7 +122,7 @@ export function CartItemsProvider(props) {
   }
 
   function itemIsSelected(itemId) {
-    return cartItemsSelected.some((id) => id === itemId);
+    return cartItemsSelected.some((id) => String(id) === String(itemId));
   }
 
   function handleReload() {
