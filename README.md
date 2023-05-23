@@ -67,3 +67,9 @@ npm run build
 ```
 
 Thank you for considering React-Shop for your e-commerce solution!
+
+## License
+This project is licensed under the terms of the license provided in the repository. Please see the LICENSE file for details.
+
+## Conclusion
+I hope you find this backend service useful for your e-commerce application. If you have any questions or encounter any issues, please feel free to open an issue or make a pull request.

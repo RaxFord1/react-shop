@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Modal, Button, Form, Input, Spin, message } from "antd";
 import { LoadingOutlined } from "@ant-design/icons";
 import axios from "axios";
@@ -11,6 +11,12 @@ const LoginModal = () => {
   const [visible, setVisible] = useState(false);
   const [loading, setLoading] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    if (userCtx.userId) {
+      setIsAuthenticated(true);
+    }
+  }, [userCtx]);
 
   const onFinish = (values) => {
     setLoading(true);

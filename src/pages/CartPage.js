@@ -57,7 +57,7 @@ function CartPage() {
       dataIndex: "action",
       key: "action",
       render: (_, record) => (
-        <Button type="primary" danger>
+        <Button type="primary" danger onClick={()=>{cartCtx.toggleSelected(record.id)}}>
           Remove
         </Button>
       ),

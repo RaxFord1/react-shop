@@ -30,20 +30,7 @@ function ItemPage() {
   console.log(element);
 
   function toggleSelectHandler() {
-    if (itemIsSelected) {
-      cartCtx.removeItem(id);
-    } else {
-      cartCtx.addItem({
-        id: element.id,
-        name: element.name,
-        displayed_price: element.displayed_price,
-        price: element.price,
-        image: element.image,
-        sale: element.sale,
-        category: element.category,
-        description: element.description,
-      });
-    }
+    cartCtx.toggleSelected(id)
   }
 
   return (
